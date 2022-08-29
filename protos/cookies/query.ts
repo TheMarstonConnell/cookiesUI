@@ -347,6 +347,7 @@ export const QueryAllBuildingsRequest = {
       ...baseQueryAllBuildingsRequest,
     } as QueryAllBuildingsRequest;
     if (object.pagination !== undefined && object.pagination !== null) {
+      // @ts-ignore
       message.pagination = PageRequest.fromPartial(object.pagination);
     } else {
       message.pagination = undefined;
@@ -448,6 +449,7 @@ export const QueryAllBuildingsResponse = {
       }
     }
     if (object.pagination !== undefined && object.pagination !== null) {
+      // @ts-ignore
       message.pagination = PageResponse.fromPartial(object.pagination);
     } else {
       message.pagination = undefined;
@@ -697,6 +699,7 @@ function longToNumber(long: Long): number {
   return long.toNumber();
 }
 
+// @ts-ignore
 if (util.Long !== Long) {
   util.Long = Long as any;
   configure();

@@ -22,7 +22,8 @@ const Home: NextPage = () => {
   const PUBLIC_STAKING_DENOM = process.env.NEXT_PUBLIC_STAKING_DENOM || "ucookies";
   const [loadedAt, setLoadedAt] = useState(new Date());
   const [loading, setLoading] = useState(false);
-  const [costs, setCosts] = useState([0, 0, 0, 0, 0, 0, 0]);
+  const [costs, setCosts] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
+  const [counts, setCounts] = useState([0, 0, 0, 0, 0, 0, 0, 0]);
 
 
   useEffect(() => {
@@ -40,6 +41,19 @@ const Home: NextPage = () => {
           address: walletAddress,
           building: index.toString()
         });
+
+        let bid =  `${walletAddress}${index.toString().padStart(2, '0')}`
+
+        const countRes = queryService.Buildings({
+          uid: bid
+        });
+
+        countRes.then((r) => {
+          let cnt = r.buildings?.count as number
+          counts[index] = cnt
+          setCounts(counts)
+        }).catch((err) => {
+        })
   
         queryResult.then((r) => {
           costs[index] = r.cost
@@ -131,13 +145,10 @@ const Home: NextPage = () => {
 
   let btn_style = (i : number) => { 
     let b = parseInt(balance)
-    console.log(b)
     let c = costs[i]
     c = c / 1000000
     
-    console.log(c)
     let afford =  b > c
-    console.log(afford)
     return `btn btn-primary h-24 box-border p-6 ${afford ? "" : "btn-outline"}`
   }
 
@@ -164,42 +175,42 @@ const Home: NextPage = () => {
           className={btn_style(0)}
           onClick={() => {buy(0)}}
           disabled={loading}
-        >{loading ? "..." : `Assistant (${convertMicroDenomToDenom(costs[0])})`}</button>
+        >{loading ? "..." : `Assistant #${counts[0]} (${convertMicroDenomToDenom(costs[0])})`}</button>
          <button
           className={btn_style(1)}
           onClick={() => {buy(1)}}
           disabled={loading}
-        >{loading ? "..." : `Oven (${convertMicroDenomToDenom(costs[1])})`}</button>
+        >{loading ? "..." : `Oven #${counts[1]} (${convertMicroDenomToDenom(costs[1])})`}</button>
         <button
           className={btn_style(2)}
           onClick={() => {buy(2)}}
           disabled={loading}
-        >{loading ? "..." : `Bakery (${convertMicroDenomToDenom(costs[2])})`}</button>
+        >{loading ? "..." : `Bakery #${counts[2]} (${convertMicroDenomToDenom(costs[2])})`}</button>
         <button
           className={btn_style(3)}
           onClick={() => {buy(3)}}
           disabled={loading}
-        >{loading ? "..." : `Factory (${convertMicroDenomToDenom(costs[3])})`}</button>
+        >{loading ? "..." : `Factory #${counts[3]} (${convertMicroDenomToDenom(costs[3])})`}</button>
         <button
           className={btn_style(4)}
           onClick={() => {buy(4)}}
           disabled={loading}
-        >{loading ? "..." : `Campus (${convertMicroDenomToDenom(costs[4])})`}</button>
+        >{loading ? "..." : `Campus #${counts[4]} (${convertMicroDenomToDenom(costs[4])})`}</button>
         <button
           className={btn_style(5)}
           onClick={() => {buy(5)}}
           disabled={loading}
-        >{loading ? "..." : `Power Plant (${convertMicroDenomToDenom(costs[5])})`}</button>
+        >{loading ? "..." : `Power Plant #${counts[5]} (${convertMicroDenomToDenom(costs[5])})`}</button>
         <button
           className={btn_style(6)}
           onClick={() => {buy(6)}}
           disabled={loading}
-        >{loading ? "..." : `Robots (${convertMicroDenomToDenom(costs[6])})`}</button>
+        >{loading ? "..." : `Robots #${counts[6]} (${convertMicroDenomToDenom(costs[6])})`}</button>
         <button
           className={btn_style(7)}
           onClick={() => {buy(7)}}
           disabled={loading}
-        >{loading ? "..." : `Quantum Oven (${convertMicroDenomToDenom(costs[7])})`}</button>
+        >{loading ? "..." : `Quantum Oven #${counts[7]} (${convertMicroDenomToDenom(costs[7])})`}</button>
       </div>
     </WalletLoader>
   );
