@@ -1,13 +1,13 @@
 {
   "junoLight": {
-    "primary": "#f0827d",
-    "primary-focus": "#e67873",
+    "primary": "#1da1f2",
+    "primary-focus": "#1da1f2",
     "primary-content": "#fff",
     "secondary": "#9f9f9f",
     "secondary-focus": "#959595",
     "secondary-content": "#fff",
-    "accent": "#7171f0",
-    "accent-focus": "#6767E6",
+    "accent": "#F49D5A",
+    "accent-focus": "#F49D5A",
     "accent-content": "#fff",
     "neutral": "#3d4451",
     "neutral-focus": "#2a2e37",
@@ -22,8 +22,8 @@
     "error": "#f06c65"
   },
   "junoDark": {
-    "primary": "#f0827d",
-    "primary-focus": "#e67873",
+    "primary": "#1da1f2",
+    "primary-focus": "#1da1f2",
     "primary-content": "#2b303b",
     "secondary": "#9f9f9f",
     "secondary-focus": "#959595",

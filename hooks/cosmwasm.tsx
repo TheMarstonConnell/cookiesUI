@@ -7,6 +7,21 @@ import {
 import { config } from "util/config";
 import { GasPrice } from "@cosmjs/stargate";
 
+
+import { Registry } from "@cosmjs/proto-signing";
+import {
+  defaultRegistryTypes as defaultStargateTypes,
+} from "@cosmjs/stargate";
+import { MsgBake, MsgBuyBuilding } from "protos/cookies/tx";
+
+const myRegistry = new Registry(defaultStargateTypes);
+myRegistry.register("/TheMarstonConnell.cookies.cookies.MsgBake", MsgBake); // Replace with your own type URL and Msg class
+myRegistry.register("/TheMarstonConnell.cookies.cookies.MsgBuyBuilding", MsgBuyBuilding); // Replace with your own type URL and Msg class
+
+
+
+
+
 export interface ISigningCosmWasmClientContext {
   walletAddress: string;
   signingClient: SigningCosmWasmClient | null;
@@ -45,7 +60,8 @@ export const useSigningCosmWasmClient = (): ISigningCosmWasmClientContext => {
           gasPrice: GasPrice.fromString(
             `${config("gasPrice")}${config("coinDenom")}`
           ),
-        }
+          registry: myRegistry,
+        },
       );
       setSigningClient(client);
 
